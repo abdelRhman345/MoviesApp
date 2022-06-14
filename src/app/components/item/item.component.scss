@@ -1,0 +1,63 @@
+@import "../../../styles/color";
+
+.item {
+  position: relative;
+  display: block;
+  min-height: 325px;
+  background-color: $bgColorLight;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  &-image {
+    img {
+      width: 100%;
+      height: 275px;
+      object-fit: cover;
+    }
+  }
+  &-info {
+    padding: 5px 10px;
+  }
+  &-rating {
+    background-color: $bgColor;
+    color: #d4af37;
+    width: 50px;
+    height: 25px;
+    text-align: center;
+    line-height: 1.7;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin: 0.5rem;
+    height: 30px;
+  }
+  &-overview {
+    opacity: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    background-color: $bgColorLight;
+    color: $white;
+    transform: translateY(50px);
+    transition: 0.3s ease-in-out;
+    overflow-x: auto;
+  }
+  &:hover {
+    .item-overview {
+      opacity: 0.9;
+      transform: translateY(0px);
+    }
+  }
+}

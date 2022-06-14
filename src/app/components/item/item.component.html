@@ -1,0 +1,28 @@
+<ng-container *ngIf="itemData">
+  <a
+    class="item"
+    [routerLink]="
+      itemData.title ? '/movie/' + itemData.id : '/tvshow/' + itemData.id
+    "
+  >
+    <div class="item-image">
+      <img
+        [src]="imageSize.medium + itemData.poster_path"
+        [alt]="itemData.title"
+      />
+    </div>
+    <div class="grid item-info">
+      <div class="col-9">
+        <div class="item-title">{{ itemData.title ?? itemData.name }}</div>
+      </div>
+      <div class="col-3">
+        <div class="item-rating">{{ itemData.vote_average }}</div>
+      </div>
+      <div class="col-12 item-overview">
+        <b>Overview:</b><br />
+        <br />
+        {{ itemData.overview }}
+      </div>
+    </div>
+  </a>
+</ng-container>
