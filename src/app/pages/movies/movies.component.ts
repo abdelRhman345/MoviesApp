@@ -12,7 +12,7 @@ import { MoviesService } from '../../services/movies.service';
 export class MoviesComponent implements OnInit {
   movies: Movie[] = [];
   genreId: string | null = null;
-  searchText: string = '';
+  searchValue: string = '';
 
   constructor(
     private moviesService: MoviesService,
@@ -30,18 +30,16 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  getPagedMovies(page: number) {
-    this.moviesService.searchMovies(page).subscribe((movies) => {
+  getPagedMovies(page: number, searchKeyword?: string) {
+    this.moviesService.searchMovies(page, searchKeyword).subscribe((movies) => {
       this.movies = movies;
     });
   }
 
-  getMoviesByGenre(genreId: string, pageNumber: number) {
-    this.moviesService
-      .getMoviesByGenre(genreId, pageNumber)
-      .subscribe((movies) => {
-        this.movies = movies;
-      });
+  getMoviesByGenre(genreId: string, page: number) {
+    this.moviesService.getMoviesByGenre(genreId, page).subscribe((movies) => {
+      this.movies = movies;
+    });
   }
 
   paginate(event: any) {
@@ -50,12 +48,30 @@ export class MoviesComponent implements OnInit {
     if (this.genreId) {
       this.getMoviesByGenre(this.genreId, pageNumber);
     } else {
-      this.getPagedMovies(pageNumber);
+      if (this.searchValue) {
+        this.getPagedMovies(pageNumber, this.searchValue);
+      } else {
+        this.getPagedMovies(pageNumber);
+      }
+    }
+  }
+
+  searchChanged() {
+    if (this.searchValue) {
+      this.getPagedMovies(1, this.searchValue);
     }
   }
 
   // Search
-  onSearchTextEntered(searchValue: string) {
-    this.searchText = searchValue;
-  }
+  // onSearchTextEntered(searchValue: string) {
+  //   this.searchValue = searchValue;
+  // }
+
+  // Search() {
+  //   this.data = this.movies.filter((ele) => {
+  //     return ele.title
+  //       .toLocaleLowerCase()
+  //       .includes(this.searchValue.toLocaleLowerCase());
+  //   });
+  // }
 }

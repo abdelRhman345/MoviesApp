@@ -12,6 +12,7 @@ import { TvshowsService } from '../../services/tvs.service';
 export class TvshowsComponent implements OnInit {
   tvShows: TvShows[] = [];
   genreId: string | null = null;
+  searchValue: string = '';
 
   constructor(
     private tvShowsService: TvshowsService,
@@ -29,10 +30,12 @@ export class TvshowsComponent implements OnInit {
     });
   }
 
-  getPagedTvShows(page: number) {
-    this.tvShowsService.searchTvShows(page).subscribe((tvShows) => {
-      this.tvShows = tvShows;
-    });
+  getPagedTvShows(page: number, searchKeyword?: string) {
+    this.tvShowsService
+      .searchTvShows(page, searchKeyword)
+      .subscribe((tvShows) => {
+        this.tvShows = tvShows;
+      });
   }
 
   getTvShowsByGenre(genreId: string, pageNumber: number) {
@@ -49,7 +52,17 @@ export class TvshowsComponent implements OnInit {
     if (this.genreId) {
       this.getTvShowsByGenre(this.genreId, pageNumber);
     } else {
-      this.getPagedTvShows(pageNumber);
+      if (this.searchValue) {
+        this.getPagedTvShows(pageNumber, this.searchValue);
+      } else {
+        this.getPagedTvShows(pageNumber);
+      }
+    }
+  }
+
+  searchChanged() {
+    if (this.searchValue) {
+      this.getPagedTvShows(1, this.searchValue);
     }
   }
 }

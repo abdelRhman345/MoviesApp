@@ -80,10 +80,23 @@ export class TvshowsService {
       );
   }
 
-  searchTvShows(page: number) {
+  getTvShowsSimilar(id: string) {
     return this.http
       .get<TvShowsDto>(
-        `${this.baseUrl}tv/popular?page=${page}&api_key=${this.apiKey}`
+        `${this.baseUrl}/tv/${id}/similar?api_key=${this.apiKey}`
+      )
+      .pipe(
+        switchMap((res) => {
+          return of(res.results.slice(0, 12));
+        })
+      );
+  }
+
+  searchTvShows(page: number, searchValue?: string) {
+    const uri = searchValue ? 'search/tv' : 'tv/popular';
+    return this.http
+      .get<TvShowsDto>(
+        `${this.baseUrl}${uri}?page=${page}&query=${searchValue}&api_key=${this.apiKey}`
       )
       .pipe(
         switchMap((res) => {

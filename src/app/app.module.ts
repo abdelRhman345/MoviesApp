@@ -21,7 +21,6 @@ import { TabViewModule } from 'primeng/tabview';
 import { VideoEmbedComponent } from './components/video-embed/video-embed.component';
 import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
-import { SearchComponent } from './components/search/search.component';
 import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
@@ -39,7 +38,6 @@ import { InputTextModule } from 'primeng/inputtext';
     MovieComponent,
     TvshowComponent,
     VideoEmbedComponent,
-    SearchComponent,
   ],
   imports: [
     BrowserModule,

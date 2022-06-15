@@ -15,6 +15,7 @@ export class TvshowComponent implements OnInit {
   tvShowVideos: TvShowsVideos[] = [];
   tvShowImages: TvShowsImages | null = null;
   tvShowsCredits: TvShowsCredits | null = null;
+  similarTvShows: TvShows[] = [];
 
   imagesSizes = IMAGES_SIZES;
 
@@ -29,6 +30,7 @@ export class TvshowComponent implements OnInit {
       this.getTvShowsVideos(id);
       this.getTvShowsImage(id);
       this.getTvShowsCredits(id);
+      this.getTvShowsSimilar(id);
     });
   }
   getTvShow(id: number) {
@@ -55,5 +57,11 @@ export class TvshowComponent implements OnInit {
       .subscribe((tvShowsCreditsData) => {
         this.tvShowsCredits = tvShowsCreditsData;
       });
+  }
+
+  getTvShowsSimilar(id: string) {
+    this.tvShowsService.getTvShowsSimilar(id).subscribe((tvShowSimilarData) => {
+      this.similarTvShows = tvShowSimilarData;
+    });
   }
 }
