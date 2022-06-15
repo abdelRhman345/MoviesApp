@@ -83,11 +83,11 @@ export class MoviesService {
   getMovieSimilar(id: string) {
     return this.http
       .get<MovieDto>(
-        `${this.baseUrl}/movie/${id}/similar?api_key=${this.apiKey}`
+        `${this.baseUrl}movie/${id}/similar?api_key=${this.apiKey}`
       )
       .pipe(
         switchMap((res) => {
-          return of(res.results.slice(0, 12));
+          return of(res.results.slice(0, 8));
         })
       );
   }

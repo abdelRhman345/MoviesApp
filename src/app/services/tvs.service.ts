@@ -82,12 +82,10 @@ export class TvshowsService {
 
   getTvShowsSimilar(id: string) {
     return this.http
-      .get<TvShowsDto>(
-        `${this.baseUrl}/tv/${id}/similar?api_key=${this.apiKey}`
-      )
+      .get<TvShowsDto>(`${this.baseUrl}tv/${id}/similar?api_key=${this.apiKey}`)
       .pipe(
         switchMap((res) => {
-          return of(res.results.slice(0, 12));
+          return of(res.results.slice(0, 8));
         })
       );
   }
